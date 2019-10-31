@@ -27,4 +27,26 @@
         <item name="android:background">@drawable/ripple_rounded</item>
     </style>
 
+    <style name="AppTheme.TextView" parent="android:Widget.Material.TextView">
+        <item name="fontFamily">@font/regular</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">@dimen/default_text</item>
+    </style>
+
+    <style name="AppTheme.TextView.Title" parent="AppTheme.TextView">
+        <item name="android:textSize">@dimen/default_title</item>
+    </style>
+
+    <style name="AppTheme.TextView.Subtitle" parent="AppTheme.TextView">
+        <item name="android:textSize">@dimen/default_subtitle</item>
+    </style>
+
+    <style name="AppTheme.TextView.Small" parent="AppTheme.TextView">
+        <item name="android:textSize">@dimen/default_small_text</item>
+    </style>
+
+    <style name="AppTheme.TextView.Micro" parent="AppTheme.TextView">
+        <item name="android:textSize">@dimen/default_micro_text</item>
+    </style>
+
 </resources>

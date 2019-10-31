@@ -23,6 +23,17 @@
         tools:context=".presentation.CategoriesActivity">
 
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_categories"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{presentation.showScreen() ? View.VISIBLE : View.GONE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/item_category"/>
+
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,6 +42,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            tools:visibility="gone"
             />
 
         <include
@@ -43,7 +55,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:onButtonClick="@{() -> vm.fetchCategories()}"
             app:errorText="@{presentation.error}"
-            layout="@layout/view_error_default"/>
+            layout="@layout/view_error_default"
+            tools:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

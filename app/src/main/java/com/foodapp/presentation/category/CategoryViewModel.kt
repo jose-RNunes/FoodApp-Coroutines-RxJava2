@@ -37,6 +37,7 @@ class CategoryViewModel(private val categoryUseCase: CategoryUseCase) : BaseView
                 presentation.value = Presentation(error = it.message)
             }
         }
+
     }
 
     private fun showLoading(show: Boolean){

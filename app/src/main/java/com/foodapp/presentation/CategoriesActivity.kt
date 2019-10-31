@@ -1,11 +1,13 @@
 package com.foodapp.presentation
 
 import android.os.Bundle
-import android.util.Log
 import com.foodapp.R
 import com.foodapp.databinding.ActivityCategoriesBinding
 import com.foodapp.presentation.base.BaseActivity
+import com.foodapp.presentation.category.CategoryAdapter
 import com.foodapp.presentation.category.CategoryViewModel
+import com.foodapp.presentation.ui.extensions.verticalAdapter
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CategoriesActivity : BaseActivity<ActivityCategoriesBinding>() {
@@ -14,9 +16,13 @@ class CategoriesActivity : BaseActivity<ActivityCategoriesBinding>() {
 
     private val categoryViewModel: CategoryViewModel by viewModel()
 
+    private val adapter: CategoryAdapter by inject()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.vm = categoryViewModel
+
+        initAdapter()
 
         observeData()
 
@@ -29,8 +35,12 @@ class CategoriesActivity : BaseActivity<ActivityCategoriesBinding>() {
         }
 
         categoryViewModel.categories.observeForever {
-            Log.i("TAG", "Categories $it")
+            adapter.notifyChanged(it)
         }
 
+    }
+
+    private fun initAdapter() {
+        binding.rvCategories.verticalAdapter(adapter, R.drawable.bg_divider)
     }
 }
