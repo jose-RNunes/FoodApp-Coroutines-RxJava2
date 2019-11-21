@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">FoodApp</string>
     <string name="retry">Tentar novamente</string>
+    <string name="know_more">Meals %s, know more</string>
 </resources>

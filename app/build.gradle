@@ -63,6 +63,7 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.0-RC'
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin"
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }

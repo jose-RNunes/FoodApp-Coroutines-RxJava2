@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="category"
+            type="com.foodapp.domain.model.Category" />
+
+        <variable
+            name="meal"
+            type="com.foodapp.domain.model.Meal" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_thumb"
+            android:layout_width="@dimen/extra_big_margin"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/micro_margin"
+            android:src="@drawable/ic_launcher"
+            app:layout_constraintBottom_toTopOf="@id/tv_meal"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loadUrl="@{meal.thumb}" />
+
+        <TextView
+            android:id="@+id/tv_meal"
+            style="@style/AppTheme.TextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/micro_margin"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginBottom="@dimen/small_margin"
+            android:gravity="center"
+            android:text="@{category.category}"
+            app:fontFamily="@font/bold"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintTop_toBottomOf="@id/iv_thumb"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Beef and Mustard Pie" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/default_margin" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/default_margin" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
