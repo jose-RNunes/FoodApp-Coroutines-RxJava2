@@ -1,14 +1,16 @@
 package com.foodapp.presentation.category
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.foodapp.domain.iteractor.CategoryUseCase
+import com.foodapp.domain.iteractor.MealUseCase
 import com.foodapp.domain.model.Category
 import com.foodapp.domain.model.Meal
 import com.foodapp.presentation.base.BaseViewModel
 import com.foodapp.presentation.ui.custom.SingleLiveData
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
-class CategoryViewModel(private val categoryUseCase: CategoryUseCase) : BaseViewModel() {
+class CategoryViewModel(private val mealUseCase: MealUseCase) : BaseViewModel() {
 
     data class Presentation(
         val loading: Boolean = false,
@@ -36,6 +38,16 @@ class CategoryViewModel(private val categoryUseCase: CategoryUseCase) : BaseView
 
     fun init() {
         initOnce {
+            uiScope.launch {
+                try {
+                    val result = mealUseCase.fetchCategoriesAndAreas()
+
+                    Log.i("TAG", "Result $result")
+                }catch (e: Exception){
+                    Log.e("TAG", "Error ${e.message}")
+                }
+            }
+
             screen.value = Screen.InitCategory
             fetchCategories()
         }
@@ -45,13 +57,12 @@ class CategoryViewModel(private val categoryUseCase: CategoryUseCase) : BaseView
         uiScope.launch {
             showLoading(true)
             runCatching {
-                categories.value = categoryUseCase.fetchCategories()
+                categories.value = mealUseCase.fetchCategories()
                 showLoading(false)
             }.onFailure {
                 presentation.value = Presentation(error = it.message)
             }
         }
-
     }
 
     private fun showLoading(show: Boolean) {

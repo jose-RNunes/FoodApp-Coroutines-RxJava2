@@ -5,15 +5,21 @@ import com.foodapp.domain.model.Meal
 sealed class MealDto {
 
     data class Response(
+        val idMeal: String,
         val strMeal: String,
         val strMealThumb: String,
-        val idMeal: String
+        val strInstructions: String?,
+        val strArea: String?,
+        val strTags: String?
     ) : MealDto() {
 
         fun toMeal() = Meal(
             id = idMeal,
             meal = strMeal,
-            thumb = strMealThumb
+            thumb = strMealThumb,
+            instructions = strInstructions ?: "",
+            area = strArea ?: "",
+            tags = strTags ?: ""
         )
     }
 }

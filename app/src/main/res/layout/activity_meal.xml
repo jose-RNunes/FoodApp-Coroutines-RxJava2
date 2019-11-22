@@ -6,17 +6,17 @@
     <data>
 
         <variable
-            name="category"
-            type="com.foodapp.domain.model.Category" />
-
-        <variable
             name="meal"
             type="com.foodapp.domain.model.Meal" />
+
+        <variable
+            name="mealViewModel"
+            type="com.foodapp.presentation.meal.MealViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="134dp">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/iv_thumb"
@@ -41,11 +41,22 @@
             android:gravity="center"
             android:text="@{meal.meal}"
             app:fontFamily="@font/bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_instructions"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/iv_thumb"
             tools:text="Beef and Mustard Pie" />
+
+        <TextView
+            android:id="@+id/tv_instructions"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="@{meal.instructions}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/tv_meal" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_start"

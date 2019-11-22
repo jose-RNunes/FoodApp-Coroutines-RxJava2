@@ -1,6 +1,7 @@
 package com.foodapp.presentation
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import com.foodapp.R
 import com.foodapp.databinding.ActivityCategoriesBinding
 import com.foodapp.presentation.base.BaseActivity
@@ -29,14 +30,14 @@ class CategoriesActivity : BaseActivity<ActivityCategoriesBinding>() {
         categoryViewModel.init()
     }
 
-    private fun observeData(){
-        categoryViewModel.presentation.observeForever {
+    private fun observeData() {
+        categoryViewModel.presentation.observe(this, Observer {
             binding.presentation = it
-        }
+        })
 
-        categoryViewModel.categories.observeForever {
+        categoryViewModel.categories.observe(this, Observer {
             adapter.notifyChanged(it)
-        }
+        })
 
     }
 
