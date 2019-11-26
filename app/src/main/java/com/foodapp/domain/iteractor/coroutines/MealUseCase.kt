@@ -1,6 +1,6 @@
-package com.foodapp.domain.iteractor
+package com.foodapp.domain.iteractor.coroutines
 
-import com.foodapp.data.repository.MealRepository
+import com.foodapp.data.repository.coroutines.MealRepository
 import com.foodapp.domain.model.CategoriesAndAreas
 import com.foodapp.domain.model.Category
 import com.foodapp.domain.model.Meal
@@ -37,7 +37,14 @@ class MealUseCase(private val mealRepository: MealRepository) {
     }
 
     suspend fun fetchCategoriesAndAreas(): CategoriesAndAreas {
-        return mealRepository.fetchCategoriesAndAreas()
+        return coroutineScope {
+            val categories = async(IO) { mealRepository.fetchCategories() }
+            val areas = async(IO) { mealRepository.fetchAreas() }
+            CategoriesAndAreas(
+                categories = categories.await(),
+                areas = areas.await()
+            )
+        }
     }
 
 }

@@ -2,10 +2,9 @@ package com.foodapp.repository
 
 import com.foodapp.data.Service
 import com.foodapp.data.dto.*
-import com.foodapp.data.repository.MealRepository
-import com.foodapp.data.repository.MealRepositoryImpl
+import com.foodapp.data.repository.coroutines.MealRepository
+import com.foodapp.data.repository.coroutines.MealRepositoryImpl
 import com.foodapp.domain.model.Area
-import com.foodapp.domain.model.CategoriesAndAreas
 import com.foodapp.domain.model.Category
 import com.foodapp.domain.model.Meal
 import com.nhaarman.mockitokotlin2.mock
@@ -90,48 +89,6 @@ class MealRepositoryTest {
         //Test
         try {
             result[0]
-            fail(ERROR_MSG_MOCK)
-        } catch (e: Throwable) {
-            assertEquals(e.message, ERROR_MSG_MOCK)
-        }
-    }
-
-    @Test
-    fun `Test fetchCategoriesAndAreas() when success`() = runBlocking {
-        //Prepare
-        val categoriesAndAreas = CategoriesAndAreas(
-            categories = mockCategories(),
-            areas = mockAreas()
-        )
-
-        whenever(serviceMock.fetchCategories())
-            .thenReturn(mockCategoriesDto())
-
-        whenever(serviceMock.fetchAreas())
-            .thenReturn(mockAreasDto())
-
-        //Action
-        val result = mealRepository.fetchCategoriesAndAreas()
-
-        //Test
-        assertEquals(categoriesAndAreas, result)
-    }
-
-    @Test
-    fun `Test fetchCategoriesAndAreas() when error`() = runBlocking {
-        //Prepare
-        whenever(serviceMock.fetchCategories())
-            .thenReturn(mockCategoriesDto())
-
-        whenever(serviceMock.fetchAreas())
-            .thenReturn(mockAreasDto())
-
-        //Action
-        val result = mealRepository.fetchCategoriesAndAreas()
-
-        //Test
-        try {
-            result.areas
             fail(ERROR_MSG_MOCK)
         } catch (e: Throwable) {
             assertEquals(e.message, ERROR_MSG_MOCK)

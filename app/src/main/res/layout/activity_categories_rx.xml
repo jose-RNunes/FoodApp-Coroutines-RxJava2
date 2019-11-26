@@ -9,11 +9,11 @@
 
         <variable
             name="vm"
-            type="com.foodapp.presentation.category.coroutines.CategoryViewModel" />
+            type="com.foodapp.presentation.category.rx.CategoryViewModelRx" />
 
         <variable
             name="presentation"
-            type="com.foodapp.presentation.category.coroutines.CategoryViewModel.Presentation" />
+            type="com.foodapp.presentation.category.rx.CategoryViewModelRx.Presentation" />
 
     </data>
 

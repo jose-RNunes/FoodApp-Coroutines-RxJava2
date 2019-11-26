@@ -1,7 +1,7 @@
 package com.foodapp.presentation.meal
 
 import androidx.lifecycle.MutableLiveData
-import com.foodapp.domain.iteractor.MealUseCase
+import com.foodapp.domain.iteractor.coroutines.MealUseCase
 import com.foodapp.domain.model.Meal
 import com.foodapp.presentation.base.BaseViewModel
 

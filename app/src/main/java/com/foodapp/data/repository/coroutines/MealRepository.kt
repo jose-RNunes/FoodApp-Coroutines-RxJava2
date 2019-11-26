@@ -1,6 +1,6 @@
-package com.foodapp.data.repository
+package com.foodapp.data.repository.coroutines
 
-import com.foodapp.domain.model.CategoriesAndAreas
+import com.foodapp.domain.model.Area
 import com.foodapp.domain.model.Category
 import com.foodapp.domain.model.Meal
 
@@ -12,6 +12,6 @@ interface MealRepository {
 
     suspend fun fetchMealById(idMeal: String): Meal?
 
-    suspend fun fetchCategoriesAndAreas(): CategoriesAndAreas
+    suspend fun fetchAreas(): List<Area>
 
 }

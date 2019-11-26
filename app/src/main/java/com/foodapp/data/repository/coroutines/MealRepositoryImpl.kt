@@ -1,15 +1,11 @@
-package com.foodapp.data.repository
+package com.foodapp.data.repository.coroutines
 
 import com.foodapp.data.Service
 import com.foodapp.domain.model.Area
-import com.foodapp.domain.model.CategoriesAndAreas
 import com.foodapp.domain.model.Category
 import com.foodapp.domain.model.Meal
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
 
-class MealRepositoryImpl(private val service: Service) : MealRepository{
+class MealRepositoryImpl(private val service: Service) : MealRepository {
 
     override suspend fun fetchCategories(): List<Category> {
         return service.fetchCategories()
@@ -30,21 +26,11 @@ class MealRepositoryImpl(private val service: Service) : MealRepository{
             .firstOrNull()
     }
 
-    private suspend fun fetchAreas(): List<Area> {
+    override suspend fun fetchAreas(): List<Area> {
         return service.fetchAreas()
             .meals
             .map { it.toArea() }
     }
 
-    override suspend fun fetchCategoriesAndAreas(): CategoriesAndAreas {
-        return coroutineScope {
-            val categories = async { fetchCategories() }
-            val areas = async { fetchAreas() }
-            CategoriesAndAreas(
-                categories = categories.await(),
-                areas = areas.await()
-            )
-        }
-    }
 
 }

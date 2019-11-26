@@ -1,16 +1,15 @@
-package com.foodapp.presentation.category
+package com.foodapp.presentation.category.rx
 
-import android.util.Log
+
 import androidx.lifecycle.MutableLiveData
-import com.foodapp.domain.iteractor.MealUseCase
+import com.foodapp.domain.iteractor.rx.MealUseCaseRx
 import com.foodapp.domain.model.Category
 import com.foodapp.domain.model.Meal
 import com.foodapp.presentation.base.BaseViewModel
 import com.foodapp.presentation.ui.custom.SingleLiveData
-import kotlinx.coroutines.launch
-import java.lang.Exception
+import io.reactivex.android.schedulers.AndroidSchedulers
 
-class CategoryViewModel(private val mealUseCase: MealUseCase) : BaseViewModel() {
+class CategoryViewModelRx(private val mealUseCase: MealUseCaseRx) : BaseViewModel() {
 
     data class Presentation(
         val loading: Boolean = false,
@@ -38,31 +37,27 @@ class CategoryViewModel(private val mealUseCase: MealUseCase) : BaseViewModel() 
 
     fun init() {
         initOnce {
-            uiScope.launch {
-                try {
-                    val result = mealUseCase.fetchCategoriesAndAreas()
-
-                    Log.i("TAG", "Result $result")
-                }catch (e: Exception){
-                    Log.e("TAG", "Error ${e.message}")
-                }
-            }
-
             screen.value = Screen.InitCategory
             fetchCategories()
         }
     }
 
+
     fun fetchCategories() {
-        uiScope.launch {
-            showLoading(true)
-            runCatching {
-                categories.value = mealUseCase.fetchCategories()
-                showLoading(false)
-            }.onFailure {
-                presentation.value = Presentation(error = it.message)
-            }
-        }
+        showLoading(true)
+        compositeDisposable.add(
+            mealUseCase.fetchCategories()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        showLoading(false)
+                        categories.value = it
+                    },
+                    {
+                        presentation.value = Presentation(error = it.message)
+                    }
+                )
+        )
     }
 
     private fun showLoading(show: Boolean) {

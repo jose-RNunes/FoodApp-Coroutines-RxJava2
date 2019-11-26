@@ -8,19 +8,17 @@ import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface Service{
-
-    //Coroutines
+interface ServiceRx{
+    //Rx
     @GET("categories.php")
-    suspend fun fetchCategories(): CategoriesDto.Response
+    fun fetchCategories(): Single<CategoriesDto.Response>
 
     @GET("filter.php")
-    suspend fun fetchMealsByCategory(@Query("c") category: String): MealsDto<MealDto.Response>
+    fun fetchMealsByCategory(@Query("c") category: String): Single<MealsDto<MealDto.Response>>
 
     @GET("lookup.php?")
-    suspend fun fetchMealById(@Query("i") idMeal: String): MealsDto<MealDto.Response>
+    fun fetchMealById(@Query("i") idMeal: String): Single<MealsDto<MealDto.Response>>
 
     @GET("list.php?a=list")
-    suspend fun fetchAreas(): MealsDto<AreaDto.Response>
-
+    fun fetchAreas(): Single<MealsDto<AreaDto.Response>>
 }

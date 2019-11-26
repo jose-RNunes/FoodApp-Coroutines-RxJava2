@@ -1,4 +1,4 @@
-package com.foodapp.presentation
+package com.foodapp.presentation.category.coroutines
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
@@ -6,7 +6,7 @@ import com.foodapp.R
 import com.foodapp.databinding.ActivityCategoriesBinding
 import com.foodapp.presentation.base.BaseActivity
 import com.foodapp.presentation.category.CategoryAdapter
-import com.foodapp.presentation.category.CategoryViewModel
+import com.foodapp.presentation.category.coroutines.CategoryViewModel
 import com.foodapp.presentation.ui.extensions.verticalAdapter
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel

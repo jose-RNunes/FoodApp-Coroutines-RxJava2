@@ -12,13 +12,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".FoodApp">
-        <activity android:name=".presentation.CategoriesActivity">
+        <activity android:name=".presentation.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity android:name=".presentation.category.coroutines.CategoriesActivity"
+            android:title="@string/coroutines"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".presentation.category.rx.CategoriesActivityRx"
+            android:title="@string/rx"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
