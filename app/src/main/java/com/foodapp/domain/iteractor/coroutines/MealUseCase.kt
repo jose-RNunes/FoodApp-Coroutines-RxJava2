@@ -15,12 +15,31 @@ class MealUseCase(private val mealRepository: MealRepository) {
         return withContext(IO) {
             mealRepository.fetchCategories()
                 .map {
-                    val meals = mealRepository.fetchMealsByCategory(category = it.category)
-                    it.copy(
-                        meals = meals,
-                        totalMeals = meals.size
-                    )
-                }
+                    async {
+                        val meals = mealRepository.fetchMealsByCategory(it.category)
+                        it.copy(
+                            meals = meals,
+                            totalMeals = meals.size
+                        )
+                    }
+                }.map { it.await() }
+        }
+    }
+
+    suspend fun fetchCategories2(): List<Category> {
+        return withContext(IO) {
+            mealRepository.fetchCategories()
+                .map { fetchMealsByCategory(it) }
+        }
+    }
+
+    suspend fun fetchMealsByCategory(category: Category): Category {
+        return withContext(IO) {
+            val meals = mealRepository.fetchMealsByCategory(category.category)
+            category.copy(
+                meals = meals,
+                totalMeals = meals.size
+            )
         }
     }
 
@@ -30,11 +49,6 @@ class MealUseCase(private val mealRepository: MealRepository) {
         }
     }
 
-    suspend fun fetchMealsByCategory(category: String): List<Meal> {
-        return withContext(IO) {
-            mealRepository.fetchMealsByCategory(category)
-        }
-    }
 
     suspend fun fetchCategoriesAndAreas(): CategoriesAndAreas {
         return coroutineScope {
@@ -46,5 +60,5 @@ class MealUseCase(private val mealRepository: MealRepository) {
             )
         }
     }
-
 }
+

@@ -38,7 +38,7 @@ class CategoryViewModel(private val mealUseCase: MealUseCase) : BaseViewModel() 
 
     fun init() {
         initOnce {
-            uiScope.launch {
+            /*uiScope.launch {
                 try {
                     val result = mealUseCase.fetchCategoriesAndAreas()
 
@@ -46,7 +46,7 @@ class CategoryViewModel(private val mealUseCase: MealUseCase) : BaseViewModel() 
                 } catch (e: Exception) {
                     Log.e("TAG", "Error ${e.message}")
                 }
-            }
+            }*/
 
             screen.value =
                 Screen.InitCategory
